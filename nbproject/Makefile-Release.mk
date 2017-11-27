@@ -37,6 +37,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/Resources/Port.o \
 	${OBJECTDIR}/Resources/ip.o \
+	${OBJECTDIR}/Resources/sscan.o \
 	${OBJECTDIR}/main.o
 
 
@@ -73,6 +74,11 @@ ${OBJECTDIR}/Resources/ip.o: Resources/ip.cpp
 	${MKDIR} -p ${OBJECTDIR}/Resources
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Resources/ip.o Resources/ip.cpp
+
+${OBJECTDIR}/Resources/sscan.o: Resources/sscan.cpp
+	${MKDIR} -p ${OBJECTDIR}/Resources
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Resources/sscan.o Resources/sscan.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

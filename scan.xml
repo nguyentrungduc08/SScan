@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!-- masscan v1.0 scan -->
+<?xml-stylesheet href="" type="text/xsl"?>
+<nmaprun scanner="masscan" start="1511797786" version="1.0-BETA"  xmloutputversion="1.03">
+<scaninfo type="syn" protocol="tcp" />
+<host endtime="1511797786"><address addr="124.96.62.195" addrtype="ipv4"/><ports><port protocol="tcp" portid="3128"><state state="open" reason="syn-ack" reason_ttl="64"/></port></ports></host>
+<host endtime="1511798174"><address addr="124.12.209.86" addrtype="ipv4"/><ports><port protocol="tcp" portid="3128"><state state="open" reason="syn-ack" reason_ttl="64"/></port></ports></host>
+<host endtime="1511798176"><address addr="123.117.200.88" addrtype="ipv4"/><ports><port protocol="tcp" portid="3128"><state state="open" reason="syn-ack" reason_ttl="64"/></port></ports></host>
+<runstats>
+<finished time="1511798545" timestr="2017-11-27 23:02:25" elapsed="1089" />
+<hosts up="3" down="0" total="3" />
+</runstats>
+</nmaprun>

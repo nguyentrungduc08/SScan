@@ -21,6 +21,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <string.h>
+#include <time.h>  
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -50,11 +51,35 @@
 #define FOR(i,a,b) for(int i = (int) a; i <= (int)b; ++i)
 #define pb push_back
 #define X first
-#define Y socond
+#define Y second
 #define max(a,b) ((a) > (b) ? (a) : (b))
 #define min(a,b) ((a) < (b) ? (a) : (b))
 
 
+#define MST (-7)
+#define UTC (0)
+#define CCT (+8)
+
+#define CONNECTING 1
+#define READRES1 2
+#define READRES2 4
+#define DONE 8
+
+#define NOS_DEFAULT 500
+#define TIMEOUT 2
+
+struct QUERY{
+    std::string host;
+    int port;
+    int fd;
+    int flags;
+};
+
+struct DestInfo{
+    std::string IPAddr   = "";
+    std::string hostname = "";
+    u_short port         = 80;
+};
 
 //prototypes for functions
 std::vector<int> getListPort();

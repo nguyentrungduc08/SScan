@@ -17,6 +17,7 @@
       <itemPath>Resources/Port.cpp</itemPath>
       <itemPath>Resources/ip.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>Resources/sscan.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -55,6 +56,8 @@
       </item>
       <item path="Resources/port.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="Resources/sscan.cpp" ex="false" tool="1" flavor2="0">
+      </item>
       <item path="files/ip.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
@@ -88,6 +91,8 @@
       <item path="Resources/ip.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Resources/port.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Resources/sscan.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="files/ip.txt" ex="false" tool="3" flavor2="0">
       </item>
