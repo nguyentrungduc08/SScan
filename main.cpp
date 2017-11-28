@@ -90,7 +90,7 @@ void buildCMDMasscan(){
     }
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
-    cmdMasscan += " -p0-65535 --max-rate 10000 -oX scan.xml";   
+    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan.xml";   
 }
 
 void getListHostIP(){
