@@ -62,16 +62,14 @@ int getdate(){
 int main(int argc, char** argv) {
     
     int month = getdate();
-    if (month >11){
-        return 0;
-    }
+    
     time();
     init();
     cout << listRange.size() << " " << listIP.size() << endl;
     buildCMDMasscan();
     //cout << cmdMasscan;
     //outFile << cmdMasscan << endl;
-    //system(cmdMasscan.c_str());
+    system(cmdMasscan.c_str());
     outFile.close();
     return 0;
 }
