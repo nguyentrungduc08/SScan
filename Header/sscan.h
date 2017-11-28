@@ -78,11 +78,6 @@ struct QUERY{
     int flags;
 };
 
-struct DestInfo{
-    std::string IPAddr   = "";
-    std::string hostname = "";
-    u_short port         = 80;
-};
 
 //prototypes for functions
 std::vector<int> getListPort();
