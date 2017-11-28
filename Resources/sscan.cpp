@@ -93,9 +93,8 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
 
     int sendfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
-    u_long iMode = 1;
-
-    //int iResult = ioctlsocket(sendfd, FIONBIO, &iMode);
+    flags = fcntl(sendfd, F_GETFL, 0);
+    fcntl(sendfd, F_SETFL, flags | O_NONBLOCK);
 
     if (sendfd < 0){
         puts("can't create socket!!");
@@ -104,24 +103,25 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
     }
     get->fd = sendfd;
     if ( (n = connect(sendfd, (struct sockaddr*) &addr, sizeof(addr) ) ) < 0 ){
+        if (errno != EINPROGRESS)
+            std::cout << "nonblocking connect error\n";
+
         get->flags = CONNECTING;
         FD_SET(sendfd, rset);
         FD_SET(sendfd, wset);
 
         if (sendfd > *maxfd ){
-            //std::cout <<"max : " << *maxfd  << " " << sendfd <<std::endl;
             *maxfd = sendfd;
         }
         return sendfd;
     } else{
-        //closesocket(sendfd);
         connnectSOCKS5packet1_s(get, rset,wset);
         //return -1;
     }
 }
 
 
-bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF, int nos, int timeout){
+bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF){
 
     std::vector<QUERY> listCon;
     listCon.clear();

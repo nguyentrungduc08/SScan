@@ -44,6 +44,7 @@
 #include <regex>
 #include <vector>
 #include <chrono>
+#include <sstream>
 #include <thread>
 
 //define template
@@ -65,7 +66,7 @@
 #define READRES2 4
 #define DONE 8
 
-#define NOS_DEFAULT 500
+#define NOS_DEFAULT 300
 #define TIMEOUT 2
 
 struct QUERY{
@@ -84,7 +85,7 @@ struct DestInfo{
 //prototypes for functions
 std::vector<int> getListPort();
 void  getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange);
-
+bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF);
 
 #endif /* SSCAN_H */
 
