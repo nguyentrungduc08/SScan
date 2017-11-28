@@ -223,6 +223,7 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
 
         int n = select(maxfd + 1, &rs, &ws, NULL, &timeout);
         
+        std::cout << "__________left: " << listCon.size() << std::endl; 
         if (n > 0){
             rep(i,listCon.size()){
                 int fdu = listCon[i].fd;

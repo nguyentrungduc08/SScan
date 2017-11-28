@@ -63,7 +63,8 @@ int main(int argc, char** argv) {
     
     int month = getdate();
     
-    time();
+    auto start = std::chrono::system_clock::now();
+    //time();
     init();
     cout << listRange.size() << " " << listIP.size() << endl;
     buildCMDMasscan();
@@ -75,6 +76,11 @@ int main(int argc, char** argv) {
     //outFile << cmdMasscan << endl;
 
     outFile.close();
+    
+    auto end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end-start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "     Time: " << elapsed_seconds.count() << " (s)\n";
     return 0;
 }
 
