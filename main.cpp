@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
     init();
     cout << listRange.size() << " " << listIP.size() << endl;
     buildCMDMasscan();
-    system(cmdMasscan.c_str());
+    //system(cmdMasscan.c_str());
     getListHostIP();
     cout <<  listHostIP.size() << endl;
     checkSocks(listHostIP,outFile);
@@ -101,7 +101,7 @@ void buildCMDMasscan(){
 void getListHostIP(){
     ifstream fileHost;
     
-    fileHost.open("scan.xml");
+    fileHost.open("scan1.xml");
     regex eIP(".*<address addr=\"(.*?)\" addrtype");
     regex ePort(".*portid=\"(.*?)\"><state state");
     if (fileHost.is_open()){
@@ -135,6 +135,7 @@ void getListHostIP(){
                 listHostIP.pb(pp);
              }
          }
+        fileHost.close();
         
     } else{
         cerr << "can't open file!!!\n";
