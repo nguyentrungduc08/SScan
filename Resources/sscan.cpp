@@ -138,7 +138,7 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
     fcntl(sendfd, F_SETFL, flags | O_NONBLOCK);
     
     int enable = 1;
-    if (setsockopt(sendfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0)
+    if (setsockopt(sendfd, SOL_SOCKET, SO_REUSEADDR, (char*) &enable, sizeof(int)) < 0)
         std::cerr << ("setsockopt(SO_REUSEADDR) failed");
     
     addr.sin_addr.s_addr = inet_addr(get->host.c_str());
