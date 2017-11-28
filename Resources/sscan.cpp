@@ -82,11 +82,63 @@ bool checkConnnectSOCKS5packet1_s(QUERY * get, fd_set * rset, fd_set * wset){
     return true;
 }
 
+struct addrinfo *
+Host_serv(const char *host, const char *serv, int family, int socktype)
+{
+	int				n;
+	struct addrinfo	hints, *res;
+
+	bzero(&hints, sizeof(struct addrinfo));
+	hints.ai_flags = AI_CANONNAME;	/* always return canonical name */
+	hints.ai_family = family;		/* 0, AF_INET, AF_INET6, etc. */
+	hints.ai_socktype = socktype;	/* 0, SOCK_STREAM, SOCK_DGRAM, etc. */
+
+	if ( (n = getaddrinfo(host, serv, &hints, &res)) != 0)
+//		puts("host_serv error for %s, %s: %s",
+//				 (host == NULL) ? "(no hostname)" : host,
+//				 (serv == NULL) ? "(no service name)" : serv,
+//				 gai_strerror(n));
+            puts("here\n");
+
+	return(res);	/* return pointer to first on linked list */
+}
+/* include Socket */
+int
+Socket(int family, int type, int protocol)
+{
+	int		n;
+
+	if ( (n = socket(family, type, protocol)) < 0)
+		puts("socket error");
+	return(n);
+}
+/* end Socket */
+
+
 int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
 
-    int n, flags;
+ 
+    int n, flags,sendfd;
 
     struct sockaddr_in addr;
+    struct addrinfo * ai;
+    ai = Host_serv(get->host.c_str(), "80", 0, SOCK_STREAM);
+
+    sendfd = Socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+    //sendfd = socket(0, SOCK_STREAM , 0);
+    if (sendfd < 0){
+        puts("can't create socket");
+        return -1;
+    }
+    
+    flags = fcntl(sendfd, F_GETFL, 0);
+    fcntl(sendfd, F_SETFL, flags | O_NONBLOCK);
+    
+    addr.sin_addr.s_addr = inet_addr(get->host.c_str());
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(80);
+
+    /*
     addr.sin_family = AF_INET;                                          // host byte order
     addr.sin_port = htons(get->port);                                   // short, network byte order
     addr.sin_addr.s_addr = inet_addr(get->host.c_str());           // adding socks server IP address into structure
@@ -101,6 +153,7 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
         close(sendfd);
         return -1;
     }
+    */
     get->fd = sendfd;
     if ( (n = connect(sendfd, (struct sockaddr*) &addr, sizeof(addr) ) ) < 0 ){
         if (errno != EINPROGRESS)
@@ -170,7 +223,6 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
             rep(i,listCon.size()){
                 int fdu = listCon[i].fd;
                 int flags = listCon[i].flags;
-                //std::cout << fdu <<" " << flags << std::endl;
                 if ( (flags & CONNECTING) && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
                         std::cout <<listCon[i].host <<":"<< listCon[i].port << std::endl;
                         if ( connnectSOCKS5packet1_s(&listCon[i] , &rset,&wset) == -1){

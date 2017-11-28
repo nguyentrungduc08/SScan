@@ -19,9 +19,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdint.h>
 #include <sys/time.h>
 #include <string.h>
 #include <time.h>  
+#include <netdb.h>
 
 #include <netinet/in.h>
 #include <arpa/inet.h>
@@ -66,8 +68,8 @@
 #define READRES2 4
 #define DONE 8
 
-#define NOS_DEFAULT 300
-#define TIMEOUT 2
+#define NOS_DEFAULT 100
+#define TIMEOUT 3
 
 struct QUERY{
     std::string host;
