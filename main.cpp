@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
     init();
     cout << listRange.size() << " " << listIP.size() << endl;
     buildCMDMasscan();
-    //system(cmdMasscan.c_str());
+    system(cmdMasscan.c_str());
     getListHostIP();
     cout <<  listHostIP.size() << endl;
     checkSocks(listHostIP,outFile);
@@ -95,7 +95,7 @@ void buildCMDMasscan(){
     
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
-    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan.xml";   
+    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan1.xml";   
 }
 
 void getListHostIP(){
@@ -118,7 +118,7 @@ void getListHostIP(){
                         } 
              if (result.length() > 0)
              {
-                 outFile << result << ":";
+                 //outFile << result << ":";
                  ip = result;
              }
              if (std::regex_search(line, match, ePort) && match.size() > 1) {
@@ -127,7 +127,7 @@ void getListHostIP(){
                             result = std::string("");
                         } 
              if (result.length() > 0){
-                outFile << result << "\n";
+                //outFile << result << "\n";
                 stringstream sst(result);
                 port = 0;
                 sst >> port;
