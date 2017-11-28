@@ -57,7 +57,7 @@ int connnectSOCKS5packet1_s(QUERY * get,fd_set * rset, fd_set * wset){
     }
 }
 
-bool checkConnnectSOCKS5packet1_s(QUERY * get, fd_set * rset, fd_set * wset){
+bool checkConnnectSOCKS5packet1_s(const QUERY * get){
     char reply1[2];
     //recv(get->fd, reply1, 2, 0);
 
@@ -77,8 +77,6 @@ bool checkConnnectSOCKS5packet1_s(QUERY * get, fd_set * rset, fd_set * wset){
         std::cerr << "Bad response for init packet!" << std::endl;
         return false;
     }
-    FD_CLR(get->fd, rset);
-    FD_SET(get->fd, wset);
     return true;
 }
 
@@ -211,7 +209,6 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
             sCon.pop();
             fdu = sendNon_s(&con, &rset, &wset, &maxfd);
             if (fdu > 0 ){
-                //std::cout <<"fd: "  << fdu << std::endl;
                 listCon.pb(con);
                 ++nconn;
             }
@@ -235,26 +232,23 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
                         if ( connnectSOCKS5packet1_s(&listCon[i] , &rset,&wset) == -1){
                             FD_CLR(fdu, &wset);
                             FD_CLR(fdu, &rset);
+                            listCon[i].flags = DONE;
                             close(fdu);
                             --nconn;
                         } else{
                             //std::cout <<"ok send 1 " << listCon[i].flags <<"\n";
                         }
-                } else if (flags & READRES1 && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
-                        if ( checkConnnectSOCKS5packet1_s(&listCon[i] , &rset,&wset) ){
+                } else if ( (flags & READRES1) && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
+                        if ( checkConnnectSOCKS5packet1_s(&listCon[i]) ){
                             outF <<listCon[i].host <<":" << listCon[i].port <<"\n";
                             std::cout << "     socks5 "<<listCon[i].host <<":" << listCon[i].port << " ok\n";
-                            FD_CLR(fdu, &wset);
-                            FD_CLR(fdu, &rset);
-                            listCon[i].flags = DONE;
-                            close(fdu);
-                            --nconn;
-                        }else{
-                            FD_CLR(fdu, &wset);
-                            FD_CLR(fdu, &rset);
-                            close(fdu);
-                            --nconn;
+                            
                         }
+                        FD_CLR(fdu, &wset);
+                        FD_CLR(fdu, &rset);
+                        listCon[i].flags = DONE;
+                        close(fdu);
+                        --nconn;
                 }
             }
         } else{
