@@ -122,10 +122,13 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
 
     struct sockaddr_in addr;
     struct addrinfo * ai;
-    //ai = Host_serv(get->host.c_str(), "80", 0, SOCK_STREAM);
+    std::stringstream ss;
+    ss << get->port;
+    std::string s = ss.str();
+    ai = Host_serv(get->host.c_str(), s.c_str(), 0, SOCK_STREAM);
 
-    //sendfd = Socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
-    sendfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
+    sendfd = Socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+    //sendfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sendfd < 0){
         puts("can't create socket");
         return -1;
