@@ -122,10 +122,10 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
 
     struct sockaddr_in addr;
     struct addrinfo * ai;
-    ai = Host_serv(get->host.c_str(), "80", 0, SOCK_STREAM);
+    //ai = Host_serv(get->host.c_str(), "80", 0, SOCK_STREAM);
 
-    sendfd = Socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
-    //sendfd = socket(0, SOCK_STREAM , 0);
+    //sendfd = Socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+    sendfd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (sendfd < 0){
         puts("can't create socket");
         return -1;
@@ -136,7 +136,7 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
     
     addr.sin_addr.s_addr = inet_addr(get->host.c_str());
     addr.sin_family = AF_INET;
-    addr.sin_port = htons(80);
+    addr.sin_port = htons(get->port);
 
     /*
     addr.sin_family = AF_INET;                                          // host byte order
@@ -216,9 +216,7 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
         timeout.tv_usec = 0;
 
         int n = select(maxfd + 1, &rs, &ws, NULL, &timeout);
-        //std::cout << "max: " << maxfd <<" " << " "<< sCon.size() << " " << listCon.size() << " " << n <<" ";// std::endl;
-        //rep(i,listCon.size())
-        //std::cout << listCon.size()<<" " <<listCon[i].host <<" " <<listCon[i].flags << " " <<maxfd << " ";// std::endl;
+        
         if (n > 0){
             rep(i,listCon.size()){
                 int fdu = listCon[i].fd;
