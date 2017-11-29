@@ -68,9 +68,11 @@ int main(int argc, char** argv) {
     init();
     cout << listRange.size() << " " << listIP.size() << endl;
     buildCMDMasscan();
-    //system(cmdMasscan.c_str());
+    system(cmdMasscan.c_str());
     getListHostIP();
     cout <<  listHostIP.size() << endl;
+    
+    system("rm -rf scan.xml");
     checkSocks(listHostIP,outFile);
     //cout << cmdMasscan;
     //outFile << cmdMasscan << endl;
@@ -91,23 +93,29 @@ void init(){
 
 void buildCMDMasscan(){
     cmdMasscan =  "sudo ./masscan/bin/masscan ";
-    string ipl;
+    string ipl = "";
     rep(i,listRange.size()){
         string s = listRange[i].X +  "-" + listRange[i].Y;
         //cout << s << endl;
         s+=",";
         ipl+=s;
     }
-    
     cmdMasscan += ipl;
+    ipl = "";
+    rep(i,listRange.size()){
+        string s = listIP[i];
+        //cout << s << endl;
+        s+=",";
+        ipl+=s;
+    }
     cmdMasscan.erase(cmdMasscan.end()-1);
-    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan1.xml";   
+    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan.xml";   
 }
 
 void getListHostIP(){
     ifstream fileHost;
     
-    fileHost.open("scan1.xml");
+    fileHost.open("scan.xml");
     regex eIP(".*<address addr=\"(.*?)\" addrtype");
     regex ePort(".*portid=\"(.*?)\"><state state");
     if (fileHost.is_open()){

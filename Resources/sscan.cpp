@@ -45,7 +45,7 @@ int connnectSOCKS5packet1_s(QUERY * get,fd_set * rset, fd_set * wset){
     initPacket1[2] = 0;
 
     if (sendData_s(get->fd, initPacket1, initPacket1Length) < 0){
-        std::cerr << "Can't send first init packet to SOCKS server!" << std::endl;
+        //std::cerr << "Can't send first init packet to SOCKS server!" << std::endl;
         //closesocket(get->fd);
         return -1;
     }
@@ -63,7 +63,7 @@ bool checkConnnectSOCKS5packet1_s(const QUERY * get){
 
     if (recvData_s(get->fd, reply1, 2) <= 0)
     {
-        std::cerr<< "Error reading first init packet response!" <<"" << reply1 << std::endl;
+        //std::cerr<< "Error reading first init packet response!" <<"" << reply1 << std::endl;
         return false;
     }
 
@@ -74,7 +74,7 @@ bool checkConnnectSOCKS5packet1_s(const QUERY * get){
 
     if( !(reply1[0] == 5 && reply1[1] == 0) )
     {
-        std::cerr << "Bad response for init packet!" << std::endl;
+        //std::cerr << "Bad response for init packet!" << std::endl;
         return false;
     }
     return true;
@@ -96,7 +96,7 @@ Host_serv(const char *host, const char *serv, int family, int socktype)
 //				 (host == NULL) ? "(no hostname)" : host,
 //				 (serv == NULL) ? "(no service name)" : serv,
 //				 gai_strerror(n));
-            puts("here\n");
+            //puts("here\n");
 
 	return(res);	/* return pointer to first on linked list */
 }
@@ -223,13 +223,13 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
 
         int n = select(maxfd + 1, &rs, &ws, NULL, &timeout);
         
-        std::cout << "__________left: " << listCon.size() << std::endl; 
+        //std::cout << "__________left: " << listCon.size() << std::endl; 
         if (n > 0){
             rep(i,listCon.size()){
                 int fdu = listCon[i].fd;
                 int flags = listCon[i].flags;
                 if ( (flags & CONNECTING) && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
-                        std::cout <<listCon[i].host <<":"<< listCon[i].port << std::endl;
+                        //std::cout <<listCon[i].host <<":"<< listCon[i].port << std::endl;
                         if ( connnectSOCKS5packet1_s(&listCon[i] , &rset,&wset) == -1){
                             FD_CLR(fdu, &wset);
                             FD_CLR(fdu, &rset);
