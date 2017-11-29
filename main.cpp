@@ -92,7 +92,7 @@ void init(){
 }
 
 void buildCMDMasscan(){
-    cmdMasscan =  "sudo ./masscan/bin/masscan ";
+    cmdMasscan =  "sudo ./masscan/masscan ";
     string ipl = "";
     rep(i,listRange.size()){
         string s = listRange[i].X +  "-" + listRange[i].Y;
