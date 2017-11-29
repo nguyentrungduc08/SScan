@@ -102,7 +102,7 @@ void buildCMDMasscan(){
     }
     cmdMasscan += ipl;
     ipl = "";
-    rep(i,listRange.size()){
+    rep(i,listIP.size()){
         string s = listIP[i];
         //cout << s << endl;
         s+=",";
