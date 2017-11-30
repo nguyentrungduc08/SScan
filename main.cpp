@@ -72,7 +72,9 @@ int main(int argc, char** argv) {
     getListHostIP();
     outFile <<  listHostIP.size() << endl;
     
-    system("rm -rf scan.xml");
+    int sysI = system("rm -rf scan.xml");
+    
+    cout << "log sys: " <<< sysI << endl;
     checkSocks(listHostIP,outFile);
     //cout << cmdMasscan;
     //outFile << cmdMasscan << endl;
