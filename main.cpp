@@ -23,6 +23,7 @@ using namespace std;
 vector<pair<string,string>> listRange;
 vector<string> listIP;
 vector< pair<string,int> > listHostIP;
+vector<string> listPort;
 string cmdMasscan;
 ofstream outFile;
 
@@ -88,6 +89,7 @@ int main(int argc, char** argv) {
 
 void init(){
     getListIp("files/ip.txt", &listIP, &listRange);
+    getListPort("files/port.txt",&listPort);
     outFile.open("socks.txt");
 }
 
@@ -108,8 +110,21 @@ void buildCMDMasscan(){
         s+=",";
         ipl+=s;
     }
+    cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
-    cmdMasscan += " -p0-65535 --max-rate 300000 -oX scan.xml";   
+    
+    cmdMasscan += " -p";
+    ipl = "";
+    rep(i,listPort.size()){
+        string s = listPort[i];
+        //cout << s << endl;
+        s+=",";
+        ipl+=s;
+    }
+    cmdMasscan += ipl;
+    cmdMasscan.erase(cmdMasscan.end()-1);
+    
+    cmdMasscan += " --max-rate 300000 -oX scan.xml";   
 }
 
 void getListHostIP(){

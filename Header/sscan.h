@@ -82,6 +82,7 @@ struct QUERY{
 //prototypes for functions
 std::vector<int> getListPort();
 void  getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange);
+void  getListPort(std::string namefile,std::vector<std::string> *listPort);
 bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF);
 
 #endif /* SSCAN_H */

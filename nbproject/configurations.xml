@@ -4,20 +4,19 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>Resources/port.h</itemPath>
       <itemPath>Header/sscan.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
                    projectFiles="true">
+      <itemPath>Resources/Port.cpp</itemPath>
+      <itemPath>Resources/ip.cpp</itemPath>
+      <itemPath>Resources/sscan.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>Resources/Port.cpp</itemPath>
-      <itemPath>Resources/ip.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
-      <itemPath>Resources/sscan.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -31,6 +30,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>files/ip.txt</itemPath>
+    <itemPath>files/port.txt</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -54,11 +54,11 @@
       </item>
       <item path="Resources/ip.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Resources/port.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Resources/sscan.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="files/ip.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="files/port.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -90,11 +90,11 @@
       </item>
       <item path="Resources/ip.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Resources/port.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="Resources/sscan.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="files/ip.txt" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="files/port.txt" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
