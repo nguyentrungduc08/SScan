@@ -241,7 +241,7 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
                         }
                 } else if ( (flags & READRES1) && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
                         if ( checkConnnectSOCKS5packet1_s(&listCon[i]) ){
-                            outF <<listCon[i].host <<":" << listCon[i].port <<"\n";
+                            outF << listCon[i].host <<":" << listCon[i].port <<"\n";
                             std::cout << "     socks5 "<<listCon[i].host <<":" << listCon[i].port << " ok\n";
                             
                         }

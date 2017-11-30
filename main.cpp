@@ -65,13 +65,12 @@ int main(int argc, char** argv) {
     int month = getdate();
     
     auto start = std::chrono::system_clock::now();
-    //time();
     init();
     cout << listRange.size() << " " << listIP.size() <<" " << listPort.size() << endl;
     buildCMDMasscan();
     system(cmdMasscan.c_str());
     getListHostIP();
-    cout <<  listHostIP.size() << endl;
+    outFile <<  listHostIP.size() << endl;
     
     system("rm -rf scan.xml");
     checkSocks(listHostIP,outFile);
@@ -124,7 +123,8 @@ void buildCMDMasscan(){
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
     
-    cmdMasscan += " --max-rate 300000 -oX scan.xml";   
+    cmdMasscan += " --max-rate 300000 -oX scan.xml"; 
+    return;
 }
 
 void getListHostIP(){
@@ -167,7 +167,7 @@ void getListHostIP(){
         fileHost.close();
         
     } else{
-        cerr << "can't open file!!!\n";
+        cerr << "can't open file scan!!!\n";
     }
     return;
 }
