@@ -68,23 +68,29 @@ int main(int argc, char** argv) {
     init();
     cout << listRange.size() << " " << listIP.size() <<" " << listPort.size() << endl;
     buildCMDMasscan();
-    system(cmdMasscan.c_str());
-    getListHostIP();
-    outFile <<  listHostIP.size() << endl;
     
-    int sysI = system("rm -rf scan.xml");
+    int time  = 1;
+    while (1){
+        outFile << "time scan: " << time << endl;
+        system(cmdMasscan.c_str());
+        getListHostIP();
+        outFile <<  listHostIP.size() << endl;
     
-    cout << "log sys: " <<< sysI << endl;
-    checkSocks(listHostIP,outFile);
-    //cout << cmdMasscan;
-    //outFile << cmdMasscan << endl;
+        int sysI = system("rm -rf scan.xml");
+    
+        cout << "log sys: " << sysI << endl;
+        checkSocks(listHostIP,outFile);
+        //cout << cmdMasscan;
+        //outFile << cmdMasscan << endl;
+    
+        auto end = std::chrono::system_clock::now();
+        std::chrono::duration<double> elapsed_seconds = end-start;
+        std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+        std::cout << "     Time: " << elapsed_seconds.count() << " (s)\n";
+        ++time;
+    }
 
     outFile.close();
-    
-    auto end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end-start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-    std::cout << "     Time: " << elapsed_seconds.count() << " (s)\n";
     return 0;
 }
 
@@ -94,7 +100,7 @@ void init(){
     outFile.open("socks.txt");
 }
 
-void buildCMDMasscan(){
+void buildCMDMasscan(){ 
     cmdMasscan =  "sudo ./masscan/masscan ";
     string ipl = "";
     rep(i,listRange.size()){
