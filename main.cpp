@@ -131,7 +131,7 @@ void buildCMDMasscan(){
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
     
-    cmdMasscan += " --max-rate 100000 -oX scan.xml"; 
+    cmdMasscan += " --max-rate 50000 -oX scan.xml"; 
     return;
 }
 
