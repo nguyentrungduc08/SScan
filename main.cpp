@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
     buildCMDMasscan();
     
     int time  = 1;
-    while (1){
+    //while (1){
         outFile << "time scan: " << time << endl;
         system(cmdMasscan.c_str());
         getListHostIP();
@@ -87,8 +87,8 @@ int main(int argc, char** argv) {
         std::chrono::duration<double> elapsed_seconds = end-start;
         std::time_t end_time = std::chrono::system_clock::to_time_t(end);
         std::cout << "     Time: " << elapsed_seconds.count() << " (s)\n";
-        ++time;
-    }
+        //++time;
+    //}
 
     outFile.close();
     return 0;
@@ -131,7 +131,7 @@ void buildCMDMasscan(){
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
     
-    cmdMasscan += " --max-rate 300000 -oX scan.xml"; 
+    cmdMasscan += " --max-rate 200000 -oX scan.xml"; 
     return;
 }
 
