@@ -6,7 +6,7 @@
 
 /* 
  * File:   sscan.h
- * Author: hydra
+ * Author: nguyen trung duc
  *
  * Created on November 27, 2017, 10:18 AM
  */
