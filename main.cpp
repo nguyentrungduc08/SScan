@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
     auto start = std::chrono::system_clock::now();
     init();
     cout << listRange.size() << " " << listIP.size() <<" " << listPort.size() << endl;
-    buildCMDMasscan();
+    //buildCMDMasscan();
     
     int time  = 1;
     //while (1){
