@@ -84,6 +84,9 @@ std::vector<int> getListPort();
 void  getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange);
 void  getListPort(std::string namefile,std::vector<std::string> *listPort);
 bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF);
+void int_to_ip(uint32_t ip, char * addr);
+uint32_t ip_to_int (const char * ip);
+std::vector<int> getListPortInt();
 
 #endif /* SSCAN_H */
 

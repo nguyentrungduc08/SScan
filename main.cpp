@@ -24,6 +24,7 @@ vector<pair<string,string>> listRange;
 vector<string> listIP;
 vector< pair<string,int> > listHostIP;
 vector<string> listPort;
+vector<int> listPortInt;
 string cmdMasscan;
 ofstream outFile;
 
@@ -66,8 +67,42 @@ int main(int argc, char** argv) {
     
     auto start = std::chrono::system_clock::now();
     init();
-    cout << listRange.size() << " " << listIP.size() <<" " << listPort.size() << endl;
+    cout << listRange.size() << " " << listIP.size() <<" " << listPortInt.size() << endl;
     //buildCMDMasscan();
+    
+    rep(i,listRange.size()){
+        uint32_t be, en;
+        string sbe, sen;
+        sbe = listRange[i].first;
+        sen = listRange[i].second;
+        be = ip_to_int(sbe.c_str());
+        en = ip_to_int(sen.c_str());
+        //cout <<be <<  " " << en << endl;
+        uint32_t ip;
+        for(ip = be; ip <= en; ip = ip + (uint32_t) 1) {
+            char ipc[20];
+            int_to_ip(ip,ipc);
+            //cout << ipc << endl;
+            string s(ipc);
+            listIP.pb(s);
+            //break;
+        }
+    }
+    
+    
+    for(;;){
+        rep(i,listIP.size())
+            rep(j,listPortInt.size()){
+                pair<string, int> pp = make_pair(listIP[i],listPortInt[j]);
+                listHostIP.pb(pp);
+                if (listHostIP.size() >= 30000){
+                    checkSocks(listHostIP,outFile);
+                    listHostIP.clear();
+                }
+            }
+    }
+    
+    /*
     
     int time  = 1;
     //while (1){
@@ -89,14 +124,15 @@ int main(int argc, char** argv) {
         std::cout << "     Time: " << elapsed_seconds.count() << " (s)\n";
         //++time;
     //}
-
+     */
     outFile.close();
     return 0;
 }
 
 void init(){
     getListIp("files/ip.txt", &listIP, &listRange);
-    getListPort("files/port.txt",&listPort);
+    //getListPort("files/port.txt",&listPort);
+    listPortInt = getListPortInt();
     outFile.open("socks.txt");
 }
 
