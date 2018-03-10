@@ -50,43 +50,43 @@
 #include <thread>
 
 //define template
-#define rep(i,n) for(int i = 0; i < n; ++i)
-#define FOR(i,a,b) for(int i = (int) a; i <= (int)b; ++i)
-#define pb push_back
-#define X first
-#define Y second
-#define max(a,b) ((a) > (b) ? (a) : (b))
-#define min(a,b) ((a) < (b) ? (a) : (b))
+#define rep(i,n) 		for(int i = 0; i < n; ++i)
+#define FOR(i,a,b) 		for(int i = (int) a; i <= (int)b; ++i)
+#define pb 				push_back
+#define X 				first
+#define Y 				second
+#define max(a,b) 		((a) > (b) ? (a) : (b))
+#define min(a,b) 		((a) < (b) ? (a) : (b))
 
 
-#define MST (-7)
-#define UTC (0)
-#define CCT (+8)
+#define MST 			(-7)
+#define UTC 			(0)
+#define CCT 			(+8)
 
-#define CONNECTING 1
-#define READRES1 2
-#define READRES2 4
-#define DONE 8
+#define CONNECTING 		1
+#define READRES1	 	2
+#define READRES2 		4
+#define DONE 			8
 
-#define NOS_DEFAULT 100
-#define TIMEOUT 3
+#define NOS_DEFAULT	 	100
+#define TIMEOUT 		3
 
 struct QUERY{
-    std::string host;
-    int port;
-    int fd;
-    int flags;
+    std::string 	host;
+    int 			port;
+    int 			fd;
+    int 			flags;
 };
 
 
 //prototypes for functions
-std::vector<int> getListPort();
-void  getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange);
-void  getListPort(std::string namefile,std::vector<std::string> *listPort);
-bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF);
-void int_to_ip(uint32_t ip, char * addr);
-uint32_t ip_to_int (const char * ip);
-std::vector<int> getListPortInt();
+std::vector<int> 	getListPort();
+void  				getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange);
+void  				getListPort(std::string namefile,std::vector<std::string> *listPort);
+bool 				checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF);
+void 				int_to_ip(uint32_t ip, char * addr);
+uint32_t 			ip_to_int (const char * ip);
+std::vector<int> 	getListPortInt();
 
 #endif /* SSCAN_H */
 

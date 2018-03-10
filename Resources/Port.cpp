@@ -14,11 +14,11 @@ bool checklineRangePort(std::string line){
 }
 
 std::vector<int> getListPortInt(){
-    std::vector <int> listPortm;
-    bool userPort[70000];
-    memset(userPort,0,sizeof(userPort));
+    std::vector<int>    listPortm;
+    bool                userPort[70000];
+    std::ifstream       inputFile;
 
-    std::ifstream inputFile;
+    memset(userPort,0,sizeof(userPort));
     inputFile.open("files/port.txt");
     if (inputFile.is_open()){
         //std::cout <<"ok opent \n";
@@ -48,8 +48,8 @@ std::vector<int> getListPortInt(){
             }
         }
         rep(i, 65555)
-                if (userPort[i])
-                    listPortm.pb(i);
+            if (userPort[i])
+                listPortm.pb(i);
     } else{
         std::cerr << "can't open file port\n";
         inputFile.close();
@@ -58,7 +58,7 @@ std::vector<int> getListPortInt(){
 }
 
 void  getListPort(std::string namefile,std::vector<std::string> *listPort){
-    std::ifstream inputFile;
+    std::ifstream   inputFile;
     inputFile.open(namefile.c_str());
     
     if (inputFile.is_open()){

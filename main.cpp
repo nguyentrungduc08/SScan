@@ -20,13 +20,13 @@ using namespace std;
  */
 
 
-vector<pair<string,string>> listRange;
-vector<string> listIP;
-vector< pair<string,int> > listHostIP;
-vector<string> listPort;
-vector<int> listPortInt;
-string cmdMasscan;
-ofstream outFile;
+vector<pair<string,string>>     listRange;
+vector<string>                  listIP;
+vector< pair<string,int> >      listHostIP;
+vector<string>                  listPort;
+vector<int>                     listPortInt;
+string                          cmdMasscan;
+ofstream                        outFile;
 
 //prototype functions 
 
@@ -35,14 +35,14 @@ void buildCMDMasscan();
 void getListHostIP();
 
 void time(){
-    time_t rawtime;
-    struct tm * ptm;
+    time_t      rawtime;
+    struct tm*  ptm;
 
     time ( &rawtime );
 
     ptm = gmtime ( &rawtime );
 
-    puts ("Current time around the World:");
+    puts   ("Current time around the World:");
     printf ("Phoenix, AZ (U.S.) :  %2d:%02d\n", (ptm->tm_hour+MST)%24, ptm->tm_min);
     printf ("Reykjavik (Iceland) : %2d:%02d\n", (ptm->tm_hour+UTC)%24, ptm->tm_min);
     printf ("Beijing (China) :     %2d:%02d\n", (ptm->tm_hour+CCT)%24, ptm->tm_min);
@@ -56,7 +56,7 @@ void time(){
 }
 
 int getdate(){
-    time_t t = time(0);   // get time now
+    time_t t        = time(0);   // get time now
     struct tm * now = localtime( & t );
     return now->tm_mon +1;
 }
@@ -71,14 +71,15 @@ int main(int argc, char** argv) {
     //buildCMDMasscan();
     
     rep(i,listRange.size()){
-        uint32_t be, en;
-        string sbe, sen;
-        sbe = listRange[i].first;
-        sen = listRange[i].second;
-        be = ip_to_int(sbe.c_str());
-        en = ip_to_int(sen.c_str());
+        uint32_t    be, en;
+        string      sbe, sen;
+        uint32_t    ip;
+        sbe     = listRange[i].first;
+        sen     = listRange[i].second;
+        be      = ip_to_int(sbe.c_str());
+        en      = ip_to_int(sen.c_str());
         //cout <<be <<  " " << en << endl;
-        uint32_t ip;
+        
         for(ip = be; ip <= en; ip = ip + (uint32_t) 1) {
             char ipc[20];
             int_to_ip(ip,ipc);
@@ -88,7 +89,6 @@ int main(int argc, char** argv) {
             //break;
         }
     }
-    
     
     for(;;){
         rep(i,listIP.size())
@@ -137,13 +137,13 @@ void init(){
 }
 
 void buildCMDMasscan(){ 
-    cmdMasscan =  "sudo ./masscan/masscan ";
-    string ipl = "";
+    cmdMasscan  =  "sudo ./masscan/masscan ";
+    string ipl  = "";
     rep(i,listRange.size()){
         string s = listRange[i].X +  "-" + listRange[i].Y;
         //cout << s << endl;
-        s+=",";
-        ipl+=s;
+        s   +=  ",";
+        ipl +=  s;
     }
     cmdMasscan += ipl;
     ipl = "";

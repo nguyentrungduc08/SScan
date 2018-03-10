@@ -14,8 +14,8 @@ int sendData_s(int s, const void *buffer, int buflen)
         int numSent = send(s, pbuf, buflen, 0);
         if (numSent == -1)
             return -1;
-        pbuf += numSent;
-        buflen -= numSent;
+        pbuf    += numSent;
+        buflen  -= numSent;
     }
     return 1;
 }
@@ -183,31 +183,31 @@ int sendNon_s(QUERY *get, fd_set * rset, fd_set * wset, int * maxfd){
 
 bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstream& outF){
 
-    std::vector<QUERY> listCon;
-    listCon.clear();
-    std::stack<QUERY> sCon;
+    std::vector<QUERY>  listCon;
+    std::stack<QUERY>   sCon;
+    fd_set              rset, wset;
 
-    fd_set rset, wset;
+    listCon.clear();
     FD_ZERO(&rset);
     FD_ZERO(&wset);
 
     int maxfd = -1;
     rep(i,checkList.size()){
         QUERY que;
-        que.fd = 0;
-        que.host = checkList[i].X;
-        que.flags = 0;
-        que.port = checkList[i].Y;
+        que.fd      = 0;
+        que.host    = checkList[i].X;
+        que.flags   = 0;
+        que.port    = checkList[i].Y;
         sCon.push(que);
     }
 
     int nconn = 0;
     while ( !sCon.empty()  || nconn > 0){
         while (!sCon.empty() && nconn < NOS_DEFAULT) {
-            int fdu = -1;
-            QUERY con = sCon.top();
+            int fdu     = -1;
+            QUERY con   = sCon.top();
             sCon.pop();
-            fdu = sendNon_s(&con, &rset, &wset, &maxfd);
+            fdu         = sendNon_s(&con, &rset, &wset, &maxfd);
             if (fdu > 0 ){
                 listCon.pb(con);
                 ++nconn;
@@ -218,7 +218,7 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
         ws = wset;
 
         struct timeval timeout;
-        timeout.tv_sec = TIMEOUT;
+        timeout.tv_sec  = TIMEOUT;
         timeout.tv_usec = 0;
 
         int n = select(maxfd + 1, &rs, &ws, NULL, &timeout);
@@ -226,8 +226,8 @@ bool checkSocks(std::vector<std::pair<std::string, int> > checkList, std::ofstre
         //std::cout << "__________left: " << listCon.size() << std::endl; 
         if (n > 0){
             rep(i,listCon.size()){
-                int fdu = listCon[i].fd;
-                int flags = listCon[i].flags;
+                int fdu     = listCon[i].fd;
+                int flags   = listCon[i].flags;
                 if ( (flags & CONNECTING) && ( FD_ISSET(fdu,&rs) || FD_ISSET(fdu,&ws) ) ){
                         //std::cout <<listCon[i].host <<":"<< listCon[i].port << std::endl;
                         if ( connnectSOCKS5packet1_s(&listCon[i] , &rset,&wset) == -1){

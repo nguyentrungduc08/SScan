@@ -8,7 +8,7 @@
 
 void int_to_ip(uint32_t ip, char * addr){
     unsigned char bytes[4];
-    bytes[0] = ip & 0xFF;
+    bytes[0] = (ip) & 0xFF;
     bytes[1] = (ip >> 8) & 0xFF;
     bytes[2] = (ip >> 16) & 0xFF;
     bytes[3] = (ip >> 24) & 0xFF;
@@ -17,8 +17,8 @@ void int_to_ip(uint32_t ip, char * addr){
 
 
 void getListIp(std::string namefile){
-    std::regex e("(\\d{1,3}(\\.\\d{1,3}){3})");
-    std::ifstream inputfile;
+    std::regex      e("(\\d{1,3}(\\.\\d{1,3}){3})");
+    std::ifstream   inputfile;
 
     inputfile.open(namefile.c_str());
 
@@ -61,9 +61,9 @@ std::pair<std::string, std::string> get_range(std::string const &s, std::regex c
 }
 
 void  getListIp(std::string namefile,std::vector<std::string> *listIP, std::vector< std::pair<std::string, std::string> > *listRange){
-    std::regex e("(\\d{1,3}(\\.\\d{1,3}){3})");
-    std::regex ee("(\\d{1,3}(\\.\\d{1,3}){3}) (\\d{1,3}(\\.\\d{1,3}){3})");
-    std::ifstream inputfile;
+    std::regex      e("(\\d{1,3}(\\.\\d{1,3}){3})");
+    std::regex      ee("(\\d{1,3}(\\.\\d{1,3}){3}) (\\d{1,3}(\\.\\d{1,3}){3})");
+    std::ifstream   inputfile;
 
     inputfile.open(namefile.c_str());
 
