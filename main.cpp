@@ -15,8 +15,9 @@
 
 using namespace std;
 
-/*
- * 
+/* @todo:
+ * - build Mmake.  
+ * - run by parameters input.
  */
 
 
@@ -49,24 +50,26 @@ void time(){
     
     time_t t = time(0);   // get time now
     struct tm * now = localtime( & t );
-    cout << (now->tm_year + 1900) << '-' 
-         << (now->tm_mon + 1) << '-'
-         <<  now->tm_mday
-         << endl;
+
+    cout << (now->tm_year + 1900)   << '-' 
+         << (now->tm_mon + 1)       << '-'
+         <<  now->tm_mday           << endl;
 }
 
 int getdate(){
-    time_t t        = time(0);   // get time now
-    struct tm * now = localtime( & t );
+    time_t t            = time(0);   // get time now
+    struct tm * now     = localtime( & t );
     return now->tm_mon +1;
 }
 
 int main(int argc, char** argv) {
     
-    int month = getdate();
+    int month   = getdate();
     
-    auto start = std::chrono::system_clock::now();
+    auto start  = std::chrono::system_clock::now();
+
     init();
+
     cout << listRange.size() << " " << listIP.size() <<" " << listPortInt.size() << endl;
     //buildCMDMasscan();
     
@@ -153,6 +156,7 @@ void buildCMDMasscan(){
         s+=",";
         ipl+=s;
     }
+
     cmdMasscan += ipl;
     cmdMasscan.erase(cmdMasscan.end()-1);
     
