@@ -71,6 +71,9 @@
 #define NOS_DEFAULT	 	100
 #define TIMEOUT 		3
 
+#define VERSION_MAJOR 	@Tutorial_VERSION_MAJOR@
+#define VERSION_MINOR 	@Tutorial_VERSION_MINOR@
+
 struct QUERY{
     std::string 	host;
     int 			port;
@@ -87,6 +90,9 @@ bool 				checkSocks(std::vector<std::pair<std::string, int> > checkList, std::of
 void 				int_to_ip(uint32_t ip, char * addr);
 uint32_t 			ip_to_int (const char * ip);
 std::vector<int> 	getListPortInt();
+void 				time();
+int 				getdate();
 
 #endif /* SSCAN_H */
+
 

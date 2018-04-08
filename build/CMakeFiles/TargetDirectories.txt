@@ -1,0 +1,3 @@
+/media/veracrypt1/projects/PracticeProjects/SScan/build/CMakeFiles/rebuild_cache.dir
+/media/veracrypt1/projects/PracticeProjects/SScan/build/CMakeFiles/edit_cache.dir
+/media/veracrypt1/projects/PracticeProjects/SScan/build/CMakeFiles/SScan.dir
